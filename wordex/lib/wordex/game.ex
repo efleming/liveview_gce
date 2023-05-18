@@ -1,6 +1,7 @@
 defmodule Wordex.Game do
   alias Wordex.Game.Core
   alias Wordex.Words
+
   def new() do
     Words.random()
     |> Core.new()

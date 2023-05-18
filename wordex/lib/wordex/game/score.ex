@@ -1,5 +1,4 @@
 defmodule Wordex.Game.Score do
-
   @doc """
   Given a five letter answer and a five letter guess,
   provide a score with the following rules:
@@ -30,16 +29,18 @@ defmodule Wordex.Game.Score do
   end
 
   defp mark_grays([], _, acc), do: Enum.reverse(acc)
-  defp mark_grays([{letter, color}|scores], misses, acc) do
-      cond do
-        (letter in misses) and (color != :green) ->
-          mark_grays(
-            scores,
-            List.delete(misses, letter),
-            [{letter, :gray}|acc])
-        true ->
-          mark_grays(scores, misses, [{letter, color}|acc])
-      end
-  end
 
+  defp mark_grays([{letter, color} | scores], misses, acc) do
+    cond do
+      letter in misses and color != :green ->
+        mark_grays(
+          scores,
+          List.delete(misses, letter),
+          [{letter, :gray} | acc]
+        )
+
+      true ->
+        mark_grays(scores, misses, [{letter, color} | acc])
+    end
+  end
 end

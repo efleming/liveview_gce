@@ -18,7 +18,7 @@ defmodule Wordex.Game.Core do
   def guess(game, guess) do
     score = Score.new(game.answer, guess)
 
-    %{game| scores: [score|game.scores]}
+    %{game | scores: [score | game.scores]}
     |> status(guess)
   end
 
@@ -32,6 +32,7 @@ defmodule Wordex.Game.Core do
         length(game.scores) == 6 -> :lost
         true -> :playing
       end
+
     %{game | status: new_status}
   end
 
@@ -48,7 +49,7 @@ defmodule Wordex.Game.Core do
     all_letters = for c <- ?a..?z, into: %{}, do: {<<c>>, :white}
 
     game.scores
-    |> List.flatten
+    |> List.flatten()
     |> Enum.group_by(&elem(&1, 0), &elem(&1, 1))
     |> Enum.map(fn {key, guess_colors} -> {key, keyboard_color(guess_colors)} end)
     |> Enum.into(all_letters)

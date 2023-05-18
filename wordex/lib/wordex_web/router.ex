@@ -40,7 +40,7 @@ defmodule WordexWeb.Router do
     scope "/dev" do
       pipe_through :browser
 
-      live_dashboard "/dashboard", metrics: WordexWeb.Telemetry
+      live_dashboard "/dashboard", metrics: WordexWeb.Telemetry, ecto_repos: [Wordex.Repo]
       forward "/mailbox", Plug.Swoosh.MailboxPreview
     end
   end
@@ -75,7 +75,7 @@ defmodule WordexWeb.Router do
     pipe_through [:browser]
 
     live "/example", ExampleLive
-
+    live "/counters/integers/:count", CountLive
     delete "/users/log_out", UserSessionController, :delete
 
     live_session :current_user,
